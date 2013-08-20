@@ -4,10 +4,10 @@
 update_period=600
 
 TMUX_POWERLINE_SEG_WEATHER_DATA_PROVIDER_DEFAULT="yahoo"
-TMUX_POWERLINE_SEG_WEATHER_UNIT_DEFAULT="c"
+TMUX_POWERLINE_SEG_WEATHER_UNIT_DEFAULT="f"
 TMUX_POWERLINE_SEG_WEATHER_UPDATE_PERIOD_DEFAULT="600"
 if shell_is_bsd; then
-    TMUX_POWERLINE_SEG_WEATHER_GREP_DEFAULT="/usr/local/bin/grep"
+    TMUX_POWERLINE_SEG_WEATHER_GREP_DEFAULT="/usr/local/bin/ggrep"
 else
     TMUX_POWERLINE_SEG_WEATHER_GREP_DEFAULT="grep"
 fi
@@ -28,7 +28,7 @@ export TMUX_POWERLINE_SEG_WEATHER_GREP="${TMUX_POWERLINE_SEG_WEATHER_GREP_DEFAUL
 # 1. Go to Yahoo weather http://weather.yahoo.com/
 # 2. Find the weather for you location
 # 3. Copy the last numbers in that URL. e.g. "http://weather.yahoo.com/united-states/california/newport-beach-12796587/" has the numbers "12796587"
-export TMUX_POWERLINE_SEG_WEATHER_LOCATION=""
+export TMUX_POWERLINE_SEG_WEATHER_LOCATION="2503523"
 EORC
 	echo "$rccontents"
 }
@@ -114,7 +114,7 @@ __yahoo_weather() {
 		if [ "$TMUX_POWERLINE_SEG_WEATHER_UNIT" == "k" ]; then
 			degree=$(echo "${degree} + 273.15" | bc)
 		fi
-		condition_symbol=$(__get_condition_symbol "$condition" "$sunrise" "$sunset") 
+		condition_symbol=$(__get_condition_symbol "$condition" "$sunrise" "$sunset")
 		echo "${condition_symbol} ${degree}°$(echo "$TMUX_POWERLINE_SEG_WEATHER_UNIT" | tr '[:lower:]' '[:upper:]')" | tee "${tmp_file}"
 	fi
 }
